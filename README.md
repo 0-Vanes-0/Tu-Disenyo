@@ -1,6 +1,10 @@
-# Tu Diseño
-*(Proyecto para "Proyecto Intermodular" de Medac)*
+<p align="center">
+	<a href="https://fp-oficial.medac.es/tecnico-superior-dam">
+		<img src="https://oniad.com/wp-content/uploads/MEDAC_imagotipo_cuadr_azul_PNG.png" width="200" alt="Medac">
+	</a>
+</p>
 
+# Tu Diseño
 Esta aplicación ofrece la posibilidad de crear tu propio diseño de ropa.
 
 El servicio dispone de un conjunto básico de prendas con colores sencillos y sin estampados, y el cliente solicita detalles adicionales, tras lo cual los responsables del diseño de la ropa realizan el pedido.
