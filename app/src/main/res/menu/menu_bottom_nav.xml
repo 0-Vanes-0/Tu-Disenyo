@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Profile"
+        android:icon="@drawable/person"
+        android:id="@+id/menu_profile"/>
+
+    <item
+        android:title="Editor"
+        android:icon="@drawable/palette"
+        android:id="@+id/menu_editor"/>
+
+    <item
+        android:title="Library"
+        android:icon="@drawable/bookshelf"
+        android:id="@+id/menu_library"/>
+
+    <item
+        android:title="Purchase"
+        android:icon="@drawable/shopping_cart"
+        android:id="@+id/menu_purchase"/>
+
+</menu>
