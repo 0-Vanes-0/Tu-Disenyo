@@ -43,10 +43,9 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="8dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/cog"
-                app:tint="?attr/colorOnSurface"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?attr/colorOnSurface" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -103,7 +102,7 @@
                     android:layout_height="48dp"
                     android:layout_marginTop="16dp"
                     android:text="Edit Profile"
-                    app:icon="@drawable/pencil"
+                    app:icon="@drawable/ic_launcher_foreground"
                     app:iconPadding="10dp"
                     app:iconGravity="textStart"
                     app:cornerRadius="12dp"/>
@@ -278,7 +277,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:padding="9dp"
-                            android:src="@drawable/hearts"
+                            android:src="@drawable/ic_launcher_foreground"
                             app:tint="@color/blue"/>
                     </androidx.cardview.widget.CardView>
 
@@ -341,7 +340,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:padding="9dp"
-                            android:src="@drawable/share"
+                            android:src="@drawable/ic_launcher_foreground"
                             app:tint="@color/green"/>
                     </androidx.cardview.widget.CardView>
 
@@ -393,19 +392,19 @@
                         android:id="@+id/recentIconCard3"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        app:cardCornerRadius="12dp"
                         app:cardBackgroundColor="@color/light_purple"
+                        app:cardCornerRadius="12dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
                             android:id="@+id/recentIcon3"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:padding="9dp"
-                            android:src="@drawable/pencil"
-                            app:tint="@color/purple"/>
+                            android:src="@drawable/ic_launcher_foreground"
+                            app:tint="@color/purple" />
                     </androidx.cardview.widget.CardView>
 
                     <TextView
@@ -416,9 +415,9 @@
                         android:text="Minimal Tee Collection"
                         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                         android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/recentTime3"
                         app:layout_constraintStart_toEndOf="@id/recentIconCard3"
-                        app:layout_constraintTop_toTopOf="@id/recentIconCard3"
-                        app:layout_constraintEnd_toStartOf="@id/recentTime3"/>
+                        app:layout_constraintTop_toTopOf="@id/recentIconCard3" />
 
                     <TextView
                         android:id="@+id/recentSubtitle3"
@@ -429,9 +428,9 @@
                         android:text="Design updated"
                         android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                         android:textColor="?attr/colorOnSurfaceVariant"
+                        app:layout_constraintEnd_toStartOf="@id/recentTime3"
                         app:layout_constraintStart_toEndOf="@id/recentIconCard3"
-                        app:layout_constraintTop_toBottomOf="@id/recentTitle3"
-                        app:layout_constraintEnd_toStartOf="@id/recentTime3"/>
+                        app:layout_constraintTop_toBottomOf="@id/recentTitle3" />
 
                     <TextView
                         android:id="@+id/recentTime3"
@@ -441,7 +440,7 @@
                         android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/recentTitle3"/>
+                        app:layout_constraintTop_toTopOf="@id/recentTitle3" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
