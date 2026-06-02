@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.IconButton
@@ -29,13 +30,16 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.jetsnack.ui.components.CustomButton
 import com.example.jetsnack.ui.home.editor.DesignStorage
 
 @Composable
 fun MyDesigns(
     onBackClick: () -> Unit,
+    onOrderClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -84,7 +88,7 @@ fun MyDesigns(
                 modifier = Modifier.fillMaxSize()
             ) {
                 items(designs) { path ->
-                    DesignCard(path = path)
+                    DesignCard(path = path, onOrderClick = { onOrderClick(path) })
                 }
             }
         }
@@ -92,31 +96,46 @@ fun MyDesigns(
 }
 
 @Composable
-private fun DesignCard(path: String) {
+private fun DesignCard(path: String, onOrderClick: () -> Unit) {
     val bitmap = remember(path) { DesignStorage.loadBitmap(path) }
 
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(1f),
+            .fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
-        if (bitmap != null) {
-            Image(
-                bitmap = bitmap.asImageBitmap(),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
-            )
-        } else {
+        Column {
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.surfaceVariant),
-                contentAlignment = Alignment.Center
+                    .fillMaxWidth()
+                    .aspectRatio(1f)
             ) {
-                Text(text = "Error loading")
+                if (bitmap != null) {
+                    Image(
+                        bitmap = bitmap.asImageBitmap(),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxSize()
+                    )
+                } else {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(MaterialTheme.colorScheme.surfaceVariant),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(text = "Error loading")
+                    }
+                }
+            }
+            CustomButton(
+                onClick = onOrderClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+            ) {
+                Text(text = "Order", textAlign = TextAlign.Center)
             }
         }
     }

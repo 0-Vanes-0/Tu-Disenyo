@@ -71,16 +71,20 @@ import androidx.core.os.ConfigurationCompat
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDeepLink
+import androidx.navigation.NavGraph
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navDeepLink
 import com.example.jetsnack.R
+import com.example.jetsnack.model.Snack
+import com.example.jetsnack.model.SnackRepo
 import com.example.jetsnack.ui.LocalNavAnimatedVisibilityScope
 import com.example.jetsnack.ui.components.Surface
 import com.example.jetsnack.ui.home.cart.Cart
 import com.example.jetsnack.ui.home.editor.Editor
 import com.example.jetsnack.ui.home.search.Search
+import com.example.jetsnack.ui.navigation.findStartDestination
 import com.example.jetsnack.ui.snackdetail.nonSpatialExpressiveSpring
 import com.example.jetsnack.ui.snackdetail.spatialExpressiveSpring
 import com.example.jetsnack.ui.theme.JetsnackTheme
@@ -144,6 +148,23 @@ fun NavGraphBuilder.addHomeGraph(
     composable("home/profile/designs") {
         MyDesigns(
             onBackClick = { navController.popBackStack() },
+            onOrderClick = { path ->
+                val customSnack = Snack(
+                    id = path.hashCode().toLong(),
+                    name = "T-Shirt print",
+                    imageRes = 0,
+                    price = 500L,
+                    imageCustomPath = path
+                )
+                SnackRepo.addSnackToCart(customSnack)
+                navController.navigate(HomeSections.CART.route) {
+                    popUpTo(findStartDestination(navController.graph).id) {
+                        saveState = true
+                    }
+                    launchSingleTop = true
+                    restoreState = true
+                }
+            },
             modifier = modifier
         )
     }

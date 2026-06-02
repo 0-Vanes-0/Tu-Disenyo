@@ -17,6 +17,9 @@
 package com.example.jetsnack.model
 
 import androidx.compose.runtime.Immutable
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlin.random.Random
 
 @Immutable
@@ -34,11 +37,60 @@ object SnackRepo {
     fun getInspiredByCart() = inspiredByCart
     fun getFilters() = filters
     fun getPriceFilters() = priceFilters
-    fun getCart() = cart
+    fun getCart(): List<OrderLine> = _cart.value
+    fun getCartFlow(): StateFlow<List<OrderLine>> = _cart.asStateFlow()
     fun getSortFilters() = sortFilters
     fun getCategoryFilters() = categoryFilters
     fun getSortDefault() = sortDefault
     fun getLifeStyleFilters() = lifeStyleFilters
+
+    private val _cart = MutableStateFlow(
+        listOf(
+            OrderLine(snacks[4], 2),
+            OrderLine(snacks[6], 3),
+            OrderLine(snacks[8], 1),
+        )
+    )
+
+    fun addSnackToCart(snack: Snack) {
+        val currentCart = _cart.value.toMutableList()
+        val existingIndex = currentCart.indexOfFirst { it.snack.id == snack.id }
+        if (existingIndex != -1) {
+            val existingItem = currentCart[existingIndex]
+            currentCart[existingIndex] = existingItem.copy(count = existingItem.count + 1)
+        } else {
+            currentCart.add(OrderLine(snack, 1))
+        }
+        _cart.value = currentCart
+    }
+
+    fun increaseSnackCount(snackId: Long) {
+        val currentCart = _cart.value.toMutableList()
+        val index = currentCart.indexOfFirst { it.snack.id == snackId }
+        if (index != -1) {
+            val item = currentCart[index]
+            currentCart[index] = item.copy(count = item.count + 1)
+            _cart.value = currentCart
+        }
+    }
+
+    fun decreaseSnackCount(snackId: Long) {
+        val currentCart = _cart.value.toMutableList()
+        val index = currentCart.indexOfFirst { it.snack.id == snackId }
+        if (index != -1) {
+            val item = currentCart[index]
+            if (item.count > 1) {
+                currentCart[index] = item.copy(count = item.count - 1)
+            } else {
+                currentCart.removeAt(index)
+            }
+            _cart.value = currentCart
+        }
+    }
+
+    fun removeSnack(snackId: Long) {
+        _cart.value = _cart.value.filter { it.snack.id != snackId }
+    }
 }
 
 /**
@@ -94,12 +146,6 @@ private val snackCollections = listOf(
 private val related = listOf(
     also.copy(id = Random.nextLong()),
     popular.copy(id = Random.nextLong()),
-)
-
-private val cart = listOf(
-    OrderLine(snacks[4], 2),
-    OrderLine(snacks[6], 3),
-    OrderLine(snacks[8], 1),
 )
 
 @Immutable

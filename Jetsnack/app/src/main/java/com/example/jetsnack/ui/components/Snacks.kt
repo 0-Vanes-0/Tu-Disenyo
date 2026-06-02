@@ -214,6 +214,7 @@ fun SnackItem(snack: Snack, snackCollectionId: Long, onSnackClick: (Long, String
             ) {
                 SnackImage(
                     imageRes = snack.imageRes,
+                    imageCustomPath = snack.imageCustomPath,
                     elevation = 1.dp,
                     contentDescription = null,
                     modifier = Modifier
@@ -365,6 +366,7 @@ private fun HighlightSnackItem(
 
                     SnackImage(
                         imageRes = snack.imageRes,
+                        imageCustomPath = snack.imageCustomPath,
                         contentDescription = null,
                         modifier = Modifier
                             .sharedBounds(
@@ -453,16 +455,22 @@ fun SnackImage(
     contentDescription: String?,
     modifier: Modifier = Modifier,
     elevation: Dp = 0.dp,
+    imageCustomPath: String? = null,
 ) {
     Surface(
         elevation = elevation,
         shape = CircleShape,
         modifier = modifier,
     ) {
+        val imageData = if (imageCustomPath != null) {
+            java.io.File(imageCustomPath)
+        } else {
+            imageRes
+        }
 
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(imageRes)
+                .data(imageData)
                 .crossfade(true)
                 .build(),
             placeholder = debugPlaceholder(debugPreview = R.drawable.placeholder),

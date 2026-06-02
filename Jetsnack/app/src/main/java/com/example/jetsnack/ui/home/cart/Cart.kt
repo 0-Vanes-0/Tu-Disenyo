@@ -305,6 +305,7 @@ fun CartItem(
         ) {
             SnackImage(
                 imageRes = snack.imageRes,
+                imageCustomPath = snack.imageCustomPath,
                 contentDescription = null,
                 modifier = Modifier
                     .padding(vertical = 16.dp)

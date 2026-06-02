@@ -30,6 +30,7 @@ data class Snack(
     val price: Long,
     val tagline: String = "",
     val tags: Set<String> = emptySet(),
+    val imageCustomPath: String? = null,
 )
 
 /**
