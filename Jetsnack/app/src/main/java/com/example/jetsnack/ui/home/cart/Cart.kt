@@ -197,19 +197,6 @@ private fun CartContent(
                 shippingCosts = 369,
             )
         }
-        item(key = "inspiredByCart") {
-            SnackCollection(
-                modifier = Modifier.animateItem(
-                    fadeInSpec = itemAnimationSpecFade,
-                    fadeOutSpec = itemAnimationSpecFade,
-                    placementSpec = itemPlacementSpec,
-                ),
-                snackCollection = inspiredByCart,
-                onSnackClick = onSnackClick,
-                highlight = false,
-            )
-            Spacer(Modifier.height(56.dp))
-        }
     }
 }
 

@@ -45,11 +45,7 @@ object SnackRepo {
     fun getLifeStyleFilters() = lifeStyleFilters
 
     private val _cart = MutableStateFlow(
-        listOf(
-            OrderLine(snacks[4], 2),
-            OrderLine(snacks[6], 3),
-            OrderLine(snacks[8], 1),
-        )
+        listOf<OrderLine>()
     )
 
     fun addSnackToCart(snack: Snack) {
