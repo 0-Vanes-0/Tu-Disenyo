@@ -87,6 +87,10 @@ object SnackRepo {
     fun removeSnack(snackId: Long) {
         _cart.value = _cart.value.filter { it.snack.id != snackId }
     }
+
+    fun clearCart() {
+        _cart.value = emptyList()
+    }
 }
 
 /**

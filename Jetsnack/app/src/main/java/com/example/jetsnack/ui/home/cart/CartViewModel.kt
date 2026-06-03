@@ -18,11 +18,16 @@ package com.example.jetsnack.ui.home.cart
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.jetsnack.R
 import com.example.jetsnack.model.OrderLine
 import com.example.jetsnack.model.SnackRepo
 import com.example.jetsnack.model.SnackbarManager
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 /**
  * Holds the contents of the cart and allows changes to it.
@@ -32,6 +37,9 @@ import kotlinx.coroutines.flow.StateFlow
 class CartViewModel(private val snackbarManager: SnackbarManager, private val snackRepository: SnackRepo) : ViewModel() {
 
     val orderLines: StateFlow<List<OrderLine>> = snackRepository.getCartFlow()
+
+    private val _checkoutState = MutableStateFlow(CheckoutState.None)
+    val checkoutState: StateFlow<CheckoutState> = _checkoutState.asStateFlow()
 
     // Logic to show errors every few requests
     private var requestCount = 0
@@ -55,6 +63,25 @@ class CartViewModel(private val snackbarManager: SnackbarManager, private val sn
 
     fun removeSnack(snackId: Long) {
         snackRepository.removeSnack(snackId)
+    }
+
+    fun onCheckoutClick() {
+        viewModelScope.launch {
+            _checkoutState.value = CheckoutState.Loading
+            delay(10000L) // Wait for 10 seconds
+            _checkoutState.value = CheckoutState.Success
+        }
+    }
+
+    fun onDismissCheckout() {
+        if (_checkoutState.value == CheckoutState.Success) {
+            snackRepository.clearCart()
+        }
+        _checkoutState.value = CheckoutState.None
+    }
+
+    enum class CheckoutState {
+        None, Loading, Success
     }
 
     /**

@@ -82,7 +82,8 @@ private data class RecentActivityItem(
 @Composable
 fun Profile(
     modifier: Modifier = Modifier,
-    onMyDesignsClick: () -> Unit = {}
+    onMyDesignsClick: () -> Unit = {},
+    onMyOrdersClick: () -> Unit = {},
 ) {
     val stats = listOf(
         ProfileStat(value = "24", label = "Designs", color = ProfileBlue),
@@ -141,6 +142,7 @@ fun Profile(
                     // TODO: open edit profile screen
                 },
                 onMyDesignsClick = onMyDesignsClick,
+                onMyOrdersClick = onMyOrdersClick,
             )
         }
 
@@ -215,6 +217,7 @@ private fun ProfileCard(
     subtitle: String,
     onEditProfileClick: () -> Unit,
     onMyDesignsClick: () -> Unit,
+    onMyOrdersClick: () -> Unit,
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -268,6 +271,8 @@ private fun ProfileCard(
                 Text(text = "Edit Profile")
             }
 
+            Spacer(modifier = Modifier.height(16.dp))
+
             OutlinedButton(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -276,6 +281,18 @@ private fun ProfileCard(
                 onClick = onMyDesignsClick
             ) {
                 Text(text = "My Designs")
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                shape = RoundedCornerShape(12.dp),
+                onClick = onMyOrdersClick
+            ) {
+                Text(text = "My order history")
             }
         }
     }

@@ -43,6 +43,7 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -52,6 +53,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.LastBaseline
@@ -90,6 +92,7 @@ fun Cart(
     viewModel: CartViewModel = viewModel(factory = CartViewModel.provideFactory()),
 ) {
     val orderLines by viewModel.orderLines.collectAsStateWithLifecycle()
+    val checkoutState by viewModel.checkoutState.collectAsStateWithLifecycle()
     val inspiredByCart = remember { SnackRepo.getInspiredByCart() }
     Cart(
         orderLines = orderLines,
@@ -98,6 +101,9 @@ fun Cart(
         decreaseItemCount = viewModel::decreaseSnackCount,
         inspiredByCart = inspiredByCart,
         onSnackClick = onSnackClick,
+        checkoutState = checkoutState,
+        onCheckoutClick = viewModel::onCheckoutClick,
+        onDismissCheckout = viewModel::onDismissCheckout,
         modifier = modifier,
     )
 }
@@ -110,6 +116,9 @@ fun Cart(
     decreaseItemCount: (Long) -> Unit,
     inspiredByCart: SnackCollection,
     onSnackClick: (Long, String) -> Unit,
+    checkoutState: CartViewModel.CheckoutState,
+    onCheckoutClick: () -> Unit,
+    onDismissCheckout: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     com.example.jetsnack.ui.components.Surface(modifier = modifier.fillMaxSize()) {
@@ -123,7 +132,16 @@ fun Cart(
                 onSnackClick = onSnackClick,
                 modifier = Modifier.align(Alignment.TopCenter),
             )
-            CheckoutBar(modifier = Modifier.align(Alignment.BottomCenter))
+            CheckoutBar(
+                onCheckoutClick = onCheckoutClick,
+                modifier = Modifier.align(Alignment.BottomCenter),
+            )
+            if (checkoutState != CartViewModel.CheckoutState.None) {
+                CheckoutOverlay(
+                    state = checkoutState,
+                    onDismiss = onDismissCheckout,
+                )
+            }
         }
     }
 }
@@ -422,7 +440,10 @@ fun SummaryItem(subtotal: Long, shippingCosts: Long, modifier: Modifier = Modifi
 }
 
 @Composable
-private fun CheckoutBar(modifier: Modifier = Modifier) {
+private fun CheckoutBar(
+    onCheckoutClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
         modifier.background(
             JetsnackTheme.colors.uiBackground.copy(alpha = AlphaNearOpaque),
@@ -433,7 +454,7 @@ private fun CheckoutBar(modifier: Modifier = Modifier) {
         Row {
             Spacer(Modifier.weight(1f))
             CustomButton(
-                onClick = { /* todo */ },
+                onClick = onCheckoutClick,
                 shape = RectangleShape,
                 modifier = Modifier
                     .padding(horizontal = 12.dp, vertical = 8.dp)
@@ -445,6 +466,74 @@ private fun CheckoutBar(modifier: Modifier = Modifier) {
                     textAlign = TextAlign.Left,
                     maxLines = 1,
                 )
+            }
+        }
+    }
+}
+
+@Composable
+private fun CheckoutOverlay(
+    state: CartViewModel.CheckoutState,
+    onDismiss: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black.copy(alpha = 0.6f))
+            .clickable(enabled = false) { },
+        contentAlignment = Alignment.Center
+    ) {
+        androidx.compose.material3.Surface(
+            shape = RoundedCornerShape(16.dp),
+            color = JetsnackTheme.colors.uiBackground,
+            modifier = Modifier.padding(24.dp)
+        ) {
+            Column(
+                modifier = Modifier.padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                when (state) {
+                    CartViewModel.CheckoutState.Loading -> {
+                        CircularProgressIndicator(
+                            color = JetsnackTheme.colors.brand,
+                            modifier = Modifier.size(48.dp)
+                        )
+                        Spacer(Modifier.height(16.dp))
+                        Text(
+                            text = "Processing your order...",
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = JetsnackTheme.colors.textPrimary
+                        )
+                    }
+                    CartViewModel.CheckoutState.Success -> {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_check),
+                            contentDescription = null,
+                            tint = JetsnackTheme.colors.brand,
+                            modifier = Modifier.size(48.dp)
+                        )
+                        Spacer(Modifier.height(16.dp))
+                        Text(
+                            text = "Your order has been accepted!",
+                            style = MaterialTheme.typography.titleMedium,
+                            color = JetsnackTheme.colors.textPrimary,
+                            textAlign = TextAlign.Center
+                        )
+                        Spacer(Modifier.height(24.dp))
+                        CustomButton(
+                            onClick = onDismiss,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                text = "OK",
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    }
+                    else -> {}
+                }
             }
         }
     }
@@ -463,6 +552,9 @@ private fun CartPreview() {
             decreaseItemCount = {},
             inspiredByCart = SnackRepo.getInspiredByCart(),
             onSnackClick = { _, _ -> },
+            checkoutState = CartViewModel.CheckoutState.None,
+            onCheckoutClick = {},
+            onDismissCheckout = {},
         )
     }
 }

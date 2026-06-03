@@ -142,7 +142,10 @@ fun NavGraphBuilder.addHomeGraph(
             modifier = modifier,
             onMyDesignsClick = {
                 navController.navigate("home/profile/designs")
-            }
+            },
+            onMyOrdersClick = {
+
+            },
         )
     }
     composable("home/profile/designs") {
