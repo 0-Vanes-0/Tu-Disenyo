@@ -42,14 +42,17 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.jetsnack.ui.home.editor.DesignStorage
 
 private val ProfileBackground = Color(0xFFF7F7F9)
 
@@ -85,10 +88,13 @@ fun Profile(
     onMyDesignsClick: () -> Unit = {},
     onMyOrdersClick: () -> Unit = {},
 ) {
+    val context = LocalContext.current
+    val designsCount = remember(context) { DesignStorage.getSavedDesigns(context).size.toString() }
+
     val stats = listOf(
-        ProfileStat(value = "24", label = "Designs", color = ProfileBlue),
-        ProfileStat(value = "156", label = "Likes", color = ProfilePink),
-        ProfileStat(value = "8", label = "Sold", color = ProfileGreen)
+        ProfileStat(value = designsCount, label = "Designs", color = ProfileBlue),
+        ProfileStat(value = "0", label = "Likes", color = ProfilePink),
+        ProfileStat(value = "0", label = "Sold", color = ProfileGreen)
     )
 
     val recentActivity = listOf(
