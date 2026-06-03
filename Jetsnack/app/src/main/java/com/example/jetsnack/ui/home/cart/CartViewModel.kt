@@ -75,7 +75,7 @@ class CartViewModel(private val snackbarManager: SnackbarManager, private val sn
 
     fun onDismissCheckout() {
         if (_checkoutState.value == CheckoutState.Success) {
-            snackRepository.clearCart()
+            snackRepository.checkout()
         }
         _checkoutState.value = CheckoutState.None
     }

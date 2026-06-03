@@ -144,7 +144,7 @@ fun NavGraphBuilder.addHomeGraph(
                 navController.navigate("home/profile/designs")
             },
             onMyOrdersClick = {
-
+                navController.navigate("home/profile/orders")
             },
         )
     }
@@ -168,6 +168,12 @@ fun NavGraphBuilder.addHomeGraph(
                     restoreState = true
                 }
             },
+            modifier = modifier
+        )
+    }
+    composable("home/profile/orders") {
+        MyOrders(
+            onBackClick = { navController.popBackStack() },
             modifier = modifier
         )
     }

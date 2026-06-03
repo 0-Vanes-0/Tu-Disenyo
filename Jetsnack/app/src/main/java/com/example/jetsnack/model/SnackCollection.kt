@@ -91,6 +91,20 @@ object SnackRepo {
     fun clearCart() {
         _cart.value = emptyList()
     }
+
+    private val _orders = MutableStateFlow<List<Order>>(emptyList())
+    fun getOrderHistoryFlow(): StateFlow<List<Order>> = _orders.asStateFlow()
+
+    fun checkout() {
+        if (_cart.value.isNotEmpty()) {
+            val newOrder = Order(
+                id = System.currentTimeMillis(),
+                items = _cart.value
+            )
+            _orders.value = listOf(newOrder) + _orders.value
+            clearCart()
+        }
+    }
 }
 
 /**
@@ -150,3 +164,6 @@ private val related = listOf(
 
 @Immutable
 data class OrderLine(val snack: Snack, val count: Int)
+
+@Immutable
+data class Order(val id: Long, val items: List<OrderLine>)
