@@ -1,12 +1,16 @@
 package com.example.jetsnack.ui.home.editor
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,7 +32,7 @@ enum class EditorToolPage(
 ) {
     ImagesAndTexts(
         route = "editor/images-and-texts",
-        title = "Imágenes"
+        title = "Elementos"
     ),
     ClothesType(
         route = "editor/clothes-type",
@@ -92,27 +96,39 @@ fun EditorToolTabs(
     currentRoute: String,
     onNavigate: (EditorToolPage) -> Unit
 ) {
-    Row(
+    Surface(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
+        shape = CircleShape,
+        color = Color.Transparent,
+        border = BorderStroke(width = 1.dp, color = JetsnackTheme.colors.uiBorder)
     ) {
-        EditorToolPage.entries.forEach { page ->
-            val selected = currentRoute == page.route
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(4.dp),
+        ) {
+            EditorToolPage.entries.forEach { page ->
+                val selected = currentRoute == page.route
 
-            CustomButton(
-                modifier = Modifier.weight(1f),
-                onClick = { onNavigate(page) },
-                backgroundGradient = if (selected) {
-                    JetsnackTheme.colors.enabled
-                } else {
-                    JetsnackTheme.colors.disabled
+                CustomButton(
+                    modifier = Modifier.weight(1f),
+                    shape = CircleShape,
+                    onClick = { onNavigate(page) },
+                    backgroundGradient = if (selected) {
+                        JetsnackTheme.colors.enabled
+                    } else {
+                        listOf(Color.Transparent, Color.Transparent)
+                    }
+                ) {
+                    Text(
+                        text = page.title,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        color = if (selected) {
+                            JetsnackTheme.colors.textInteractive
+                        } else {
+                            JetsnackTheme.colors.textSecondary
+                        }
+                    )
                 }
-            ) {
-                Text(
-                    text = page.title,
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center
-                )
             }
         }
     }
@@ -252,10 +268,10 @@ private fun ClothesType(
 
             CustomButton(
                 modifier = Modifier.weight(1f),
-                onClick = { onClothesTypeSelected("Sudadera") },
+                onClick = { onClothesTypeSelected("Gorra") },
             ) {
                 Text(
-                    text = "Sudadera",
+                    text = "Gorra",
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
                 )
