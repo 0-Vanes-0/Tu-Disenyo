@@ -197,20 +197,21 @@ fun Editor(modifier: Modifier = Modifier) {
                 }
         ) {
             val baseImageRes = when (selectedClothesType) {
-                "Sudadera" -> R.drawable.hoodiewhite
-                "Hoodie" -> R.drawable.hoodiewhite
-                "Cap" -> R.drawable.kepkawhite
-                "Polo" -> R.drawable.tshirt // Fallback
+                "Camiseta" -> R.drawable.tshirt
+                "Gorra" -> R.drawable.gorra
+                "Hoodie" -> R.drawable.hoodie
+                "Polo" -> R.drawable.polo
                 else -> R.drawable.tshirt
             }
 
             Image(
                 painter = painterResource(id = baseImageRes),
                 contentDescription = null,
+                contentScale = ContentScale.FillWidth,
                 modifier = Modifier
                     .align(Alignment.TopCenter)
                     .padding(top = 10.dp)
-                    .size(if (selectedClothesType == "Cap") 300.dp else 360.dp)
+                    .fillMaxWidth()
             )
 
             layers.forEach { layer ->
@@ -276,7 +277,7 @@ fun Editor(modifier: Modifier = Modifier) {
             onClick = {
                 scope.launch {
                     val bitmap = graphicsLayer.toImageBitmap().asAndroidBitmap()
-                    DesignStorage.saveDesign(context, bitmap)
+                    DesignStorage.saveDesign(context, bitmap, selectedClothesType)
                 }
             }
         ) {

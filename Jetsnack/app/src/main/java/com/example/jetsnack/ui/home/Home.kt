@@ -82,6 +82,7 @@ import com.example.jetsnack.model.SnackRepo
 import com.example.jetsnack.ui.LocalNavAnimatedVisibilityScope
 import com.example.jetsnack.ui.components.Surface
 import com.example.jetsnack.ui.home.cart.Cart
+import com.example.jetsnack.ui.home.editor.DesignStorage
 import com.example.jetsnack.ui.home.editor.Editor
 import com.example.jetsnack.ui.home.search.Search
 import com.example.jetsnack.ui.navigation.findStartDestination
@@ -152,9 +153,10 @@ fun NavGraphBuilder.addHomeGraph(
         MyDesigns(
             onBackClick = { navController.popBackStack() },
             onOrderClick = { path ->
+                val clothesType = DesignStorage.getClothesTypeFromPath(path)
                 val customSnack = Snack(
                     id = path.hashCode().toLong(),
-                    name = "T-Shirt print",
+                    name = clothesType,
                     imageRes = 0,
                     price = 500L,
                     imageCustomPath = path
