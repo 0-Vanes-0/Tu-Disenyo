@@ -286,10 +286,10 @@ private fun ClothesType(
         ) {
             CustomButton(
                 modifier = Modifier.weight(1f),
-                onClick = { onClothesTypeSelected("Hoodie") },
+                onClick = { onClothesTypeSelected("Cap") },
             ) {
                 Text(
-                    text = "Hoodie",
+                    text = "Cap",
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
                 )
@@ -297,10 +297,10 @@ private fun ClothesType(
 
             CustomButton(
                 modifier = Modifier.weight(1f),
-                onClick = { onClothesTypeSelected("Polo") },
+                onClick = { onClothesTypeSelected("Camiseta") },
             ) {
                 Text(
-                    text = "Polo",
+                    text = "Camiseta",
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
                 )

@@ -108,19 +108,19 @@ private fun SnackCollectionList(
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(modifier = modifier) {
-        item {
-            Spacer(
-                Modifier.windowInsetsTopHeight(
-                    WindowInsets.statusBars.add(WindowInsets(top = 56.dp)),
-                ),
-            )
-            FilterBar(
-                filters,
-                sharedTransitionScope = sharedTransitionScope,
-                filterScreenVisible = filtersVisible,
-                onShowFilters = onFiltersSelected,
-            )
-        }
+//        item {
+//            Spacer(
+//                Modifier.windowInsetsTopHeight(
+//                    WindowInsets.statusBars.add(WindowInsets(top = 56.dp)),
+//                ),
+//            )
+//            FilterBar(
+//                filters,
+//                sharedTransitionScope = sharedTransitionScope,
+//                filterScreenVisible = filtersVisible,
+//                onShowFilters = onFiltersSelected,
+//            )
+//        }
         itemsIndexed(snackCollections) { index, snackCollection ->
             if (index > 0) {
                 Divider(thickness = 2.dp)

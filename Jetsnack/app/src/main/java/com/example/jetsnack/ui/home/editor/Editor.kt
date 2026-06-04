@@ -196,13 +196,21 @@ fun Editor(modifier: Modifier = Modifier) {
                     drawLayer(graphicsLayer)
                 }
         ) {
+            val baseImageRes = when (selectedClothesType) {
+                "Sudadera" -> R.drawable.hoodiewhite
+                "Hoodie" -> R.drawable.hoodiewhite
+                "Cap" -> R.drawable.kepkawhite
+                "Polo" -> R.drawable.tshirt // Fallback
+                else -> R.drawable.tshirt
+            }
+
             Image(
-                painter = painterResource(id = R.drawable.tshirt),
+                painter = painterResource(id = baseImageRes),
                 contentDescription = null,
                 modifier = Modifier
                     .align(Alignment.TopCenter)
                     .padding(top = 10.dp)
-                    .size(360.dp)
+                    .size(if (selectedClothesType == "Cap") 300.dp else 360.dp)
             )
 
             layers.forEach { layer ->
