@@ -19,8 +19,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -165,6 +167,7 @@ fun Editor(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
             .background(Color(0xFFF7F7F9))
+            .verticalScroll(rememberScrollState())
             .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
         Text(
