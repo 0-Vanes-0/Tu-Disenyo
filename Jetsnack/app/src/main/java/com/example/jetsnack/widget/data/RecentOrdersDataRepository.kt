@@ -90,23 +90,23 @@ class RecentOrdersDataRepository {
         private val demoItems = listOf(
             DemoDataItem(
                 key = "1",
-                snackKeys = listOf(0, 20),
+                snackKeys = listOf(0, 10),
             ),
             DemoDataItem(
                 key = "2",
-                snackKeys = listOf(1, 21),
+                snackKeys = listOf(1, 11),
             ),
             DemoDataItem(
                 key = "3",
-                snackKeys = listOf(2, 22),
+                snackKeys = listOf(2, 12),
             ),
             DemoDataItem(
                 key = "4",
-                snackKeys = listOf(3, 23),
+                snackKeys = listOf(3, 13),
             ),
             DemoDataItem(
                 key = "5",
-                snackKeys = listOf(4, 24),
+                snackKeys = listOf(4, 14),
             ),
         )
 
