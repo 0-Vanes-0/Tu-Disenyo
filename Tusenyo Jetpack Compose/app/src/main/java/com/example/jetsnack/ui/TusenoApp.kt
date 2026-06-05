@@ -52,7 +52,7 @@ import com.example.jetsnack.ui.home.addHomeGraph
 import com.example.jetsnack.ui.home.composableWithCompositionLocal
 import com.example.jetsnack.ui.navigation.MainDestinations
 import com.example.jetsnack.ui.navigation.rememberNavController
-import com.example.jetsnack.ui.snackdetail.SnackDetail
+import com.example.jetsnack.ui.snackdetail.ClothesDetail
 import com.example.jetsnack.ui.snackdetail.nonSpatialExpressiveSpring
 import com.example.jetsnack.ui.snackdetail.spatialExpressiveSpring
 import com.example.jetsnack.ui.theme.Theme
@@ -92,7 +92,7 @@ fun TusenoApp() {
                         val arguments = requireNotNull(backStackEntry.arguments)
                         val snackId = arguments.getLong(MainDestinations.SNACK_ID_KEY)
                         val origin = arguments.getString(MainDestinations.ORIGIN)
-                        SnackDetail(
+                        ClothesDetail(
                             snackId,
                             origin = origin ?: "",
                             upPress = appNavController::upPress,

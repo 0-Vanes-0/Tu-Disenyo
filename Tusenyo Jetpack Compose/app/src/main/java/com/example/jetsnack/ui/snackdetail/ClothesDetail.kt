@@ -142,7 +142,7 @@ val snackDetailBoundsTransform = BoundsTransform { _, _ ->
 }
 
 @Composable
-fun SnackDetail(snackId: Long, origin: String, upPress: () -> Unit) {
+fun ClothesDetail(snackId: Long, origin: String, upPress: () -> Unit) {
     val snack = remember(snackId) { Repo.getSnack(snackId) }
     val related = remember(snackId) { Repo.getRelated(snackId) }
     val sharedTransitionScope = LocalSharedTransitionScope.current
@@ -604,9 +604,9 @@ private fun CartBottomBar(modifier: Modifier = Modifier) {
 @Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Preview("large font", fontScale = 2f)
 @Composable
-private fun SnackDetailPreview() {
+private fun ClothesDetailPreview() {
     JetsnackPreviewWrapper {
-        SnackDetail(
+        ClothesDetail(
             snackId = 1L,
             origin = "details",
             upPress = { },
