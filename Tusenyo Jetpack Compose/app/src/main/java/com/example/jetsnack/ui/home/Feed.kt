@@ -26,12 +26,7 @@ import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.add
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
@@ -44,21 +39,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetsnack.model.Filter
 import com.example.jetsnack.model.SnackCollection
-import com.example.jetsnack.model.SnackRepo
-import com.example.jetsnack.ui.components.FilterBar
+import com.example.jetsnack.model.Repo
 import com.example.jetsnack.ui.components.Divider
 import com.example.jetsnack.ui.components.Surface
-import com.example.jetsnack.ui.components.SnackCollection
+import com.example.jetsnack.ui.components.Collection
 import com.example.jetsnack.ui.theme.Theme
 
 @Composable
-fun Feed(onElementClick: (Long, String) -> Unit, modifier: Modifier = Modifier) {
-    val snackCollections = remember { SnackRepo.getSnacks() }
-    val filters = remember { SnackRepo.getFilters() }
+fun Feed(onDesignClick: (Long, String) -> Unit, modifier: Modifier = Modifier) {
+    val collections = remember { Repo.getDesigns() }
+    val filters = remember { Repo.getFilters() }
     Feed(
-        snackCollections,
+        collections,
         filters,
-        onElementClick,
+        onDesignClick,
         modifier,
     )
 }
@@ -67,7 +61,7 @@ fun Feed(onElementClick: (Long, String) -> Unit, modifier: Modifier = Modifier) 
 private fun Feed(
     snackCollections: List<SnackCollection>,
     filters: List<Filter>,
-    onSnackClick: (Long, String) -> Unit,
+    onDesignClick: (Long, String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Surface(modifier = modifier.fillMaxSize()) {
@@ -76,7 +70,7 @@ private fun Feed(
         }
         SharedTransitionLayout {
             Box {
-                SnackCollectionList(
+                CollectionList(
                     snackCollections,
                     filters,
                     filtersVisible = filtersVisible,
@@ -84,7 +78,7 @@ private fun Feed(
                         filtersVisible = true
                     },
                     sharedTransitionScope = this@SharedTransitionLayout,
-                    onSnackClick = onSnackClick,
+                    onDesignClick = onDesignClick,
                 )
                 AnimatedVisibility(filtersVisible, enter = fadeIn(), exit = fadeOut()) {
                     FilterScreen(
@@ -98,12 +92,12 @@ private fun Feed(
 }
 
 @Composable
-private fun SnackCollectionList(
+private fun CollectionList(
     snackCollections: List<SnackCollection>,
     filters: List<Filter>,
     filtersVisible: Boolean,
     onFiltersSelected: () -> Unit,
-    onSnackClick: (Long, String) -> Unit,
+    onDesignClick: (Long, String) -> Unit,
     sharedTransitionScope: SharedTransitionScope,
     modifier: Modifier = Modifier,
 ) {
@@ -121,14 +115,14 @@ private fun SnackCollectionList(
 //                onShowFilters = onFiltersSelected,
 //            )
 //        }
-        itemsIndexed(snackCollections) { index, snackCollection ->
+        itemsIndexed(snackCollections) { index, collection ->
             if (index > 0) {
                 Divider(thickness = 2.dp)
             }
 
-            SnackCollection(
-                snackCollection = snackCollection,
-                onSnackClick = onSnackClick,
+            Collection(
+                collection = collection,
+                onDesignClick = onDesignClick,
                 index = index,
             )
         }
@@ -141,6 +135,6 @@ private fun SnackCollectionList(
 @Composable
 fun HomePreview() {
     Theme {
-        Feed(onElementClick = { _, _ -> })
+        Feed(onDesignClick = { _, _ -> })
     }
 }

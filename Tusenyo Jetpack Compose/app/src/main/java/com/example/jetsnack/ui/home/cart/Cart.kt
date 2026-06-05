@@ -71,11 +71,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.jetsnack.R
 import com.example.jetsnack.model.OrderLine
 import com.example.jetsnack.model.SnackCollection
-import com.example.jetsnack.model.SnackRepo
+import com.example.jetsnack.model.Repo
 import com.example.jetsnack.ui.components.CustomButton
 import com.example.jetsnack.ui.components.Divider
 import com.example.jetsnack.ui.components.QuantitySelector
-import com.example.jetsnack.ui.components.SnackCollection
 import com.example.jetsnack.ui.components.SnackImage
 import com.example.jetsnack.ui.snackdetail.nonSpatialExpressiveSpring
 import com.example.jetsnack.ui.snackdetail.spatialExpressiveSpring
@@ -93,7 +92,7 @@ fun Cart(
 ) {
     val orderLines by viewModel.orderLines.collectAsStateWithLifecycle()
     val checkoutState by viewModel.checkoutState.collectAsStateWithLifecycle()
-    val inspiredByCart = remember { SnackRepo.getInspiredByCart() }
+    val inspiredByCart = remember { Repo.getInspiredByCart() }
     Cart(
         orderLines = orderLines,
         removeSnack = viewModel::removeSnack,
@@ -546,11 +545,11 @@ private fun CheckoutOverlay(
 private fun CartPreview() {
     Theme {
         Cart(
-            orderLines = SnackRepo.getCart(),
+            orderLines = Repo.getCart(),
             removeSnack = {},
             increaseItemCount = {},
             decreaseItemCount = {},
-            inspiredByCart = SnackRepo.getInspiredByCart(),
+            inspiredByCart = Repo.getInspiredByCart(),
             onSnackClick = { _, _ -> },
             checkoutState = CartViewModel.CheckoutState.None,
             onCheckoutClick = {},

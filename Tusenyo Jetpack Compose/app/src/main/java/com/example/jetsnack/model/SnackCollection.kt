@@ -30,8 +30,8 @@ enum class CollectionType { Normal, Highlight }
 /**
  * A fake repo
  */
-object SnackRepo {
-    fun getSnacks(): List<SnackCollection> = snackCollections
+object Repo {
+    fun getDesigns(): List<SnackCollection> = snackCollections
     fun getSnack(snackId: Long) = snacks.find { it.id == snackId }!!
     fun getRelated(@Suppress("UNUSED_PARAMETER") snackId: Long) = related
     fun getInspiredByCart() = inspiredByCart

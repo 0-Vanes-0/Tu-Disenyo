@@ -98,7 +98,7 @@ import androidx.compose.ui.util.lerp
 import com.example.jetsnack.R
 import com.example.jetsnack.model.Snack
 import com.example.jetsnack.model.SnackCollection
-import com.example.jetsnack.model.SnackRepo
+import com.example.jetsnack.model.Repo
 import com.example.jetsnack.ui.LocalNavAnimatedVisibilityScope
 import com.example.jetsnack.ui.LocalSharedTransitionScope
 import com.example.jetsnack.ui.SharedElementKey
@@ -108,7 +108,7 @@ import com.example.jetsnack.ui.components.Divider
 import com.example.jetsnack.ui.components.JetsnackPreviewWrapper
 import com.example.jetsnack.ui.components.Surface
 import com.example.jetsnack.ui.components.QuantitySelector
-import com.example.jetsnack.ui.components.SnackCollection
+import com.example.jetsnack.ui.components.Collection
 import com.example.jetsnack.ui.components.SnackImage
 import com.example.jetsnack.ui.theme.JetsnackTheme
 import com.example.jetsnack.ui.theme.Neutral8
@@ -143,8 +143,8 @@ val snackDetailBoundsTransform = BoundsTransform { _, _ ->
 
 @Composable
 fun SnackDetail(snackId: Long, origin: String, upPress: () -> Unit) {
-    val snack = remember(snackId) { SnackRepo.getSnack(snackId) }
-    val related = remember(snackId) { SnackRepo.getRelated(snackId) }
+    val snack = remember(snackId) { Repo.getSnack(snackId) }
+    val related = remember(snackId) { Repo.getRelated(snackId) }
     val sharedTransitionScope = LocalSharedTransitionScope.current
         ?: throw IllegalStateException("No Scope found")
     val animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current
@@ -363,9 +363,9 @@ private fun Body(related: List<SnackCollection>, scroll: ScrollState) {
 
                         related.forEach { snackCollection ->
                             key(snackCollection.id) {
-                                SnackCollection(
-                                    snackCollection = snackCollection,
-                                    onSnackClick = { _, _ -> },
+                                Collection(
+                                    collection = snackCollection,
+                                    onDesignClick = { _, _ -> },
                                     highlight = false,
                                 )
                             }

@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.jetsnack.model.Order
 import com.example.jetsnack.model.OrderLine
-import com.example.jetsnack.model.SnackRepo
+import com.example.jetsnack.model.Repo
 import com.example.jetsnack.ui.components.Divider
 import com.example.jetsnack.ui.components.SnackImage
 import com.example.jetsnack.ui.theme.JetsnackTheme
@@ -39,7 +39,7 @@ fun MyOrders(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val orders by SnackRepo.getOrderHistoryFlow().collectAsStateWithLifecycle(emptyList())
+    val orders by Repo.getOrderHistoryFlow().collectAsStateWithLifecycle(emptyList())
 
     Column(
         modifier = modifier

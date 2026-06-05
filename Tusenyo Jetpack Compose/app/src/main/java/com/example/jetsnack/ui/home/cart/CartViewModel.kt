@@ -21,7 +21,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.jetsnack.R
 import com.example.jetsnack.model.OrderLine
-import com.example.jetsnack.model.SnackRepo
+import com.example.jetsnack.model.Repo
 import com.example.jetsnack.model.SnackbarManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
  *
  * TODO: Move data to Repository so it can be displayed and changed consistently throughout the app.
  */
-class CartViewModel(private val snackbarManager: SnackbarManager, private val snackRepository: SnackRepo) : ViewModel() {
+class CartViewModel(private val snackbarManager: SnackbarManager, private val snackRepository: Repo) : ViewModel() {
 
     val orderLines: StateFlow<List<OrderLine>> = snackRepository.getCartFlow()
 
@@ -90,7 +90,7 @@ class CartViewModel(private val snackbarManager: SnackbarManager, private val sn
     companion object {
         fun provideFactory(
             snackbarManager: SnackbarManager = SnackbarManager,
-            snackRepository: SnackRepo = SnackRepo,
+            snackRepository: Repo = Repo,
         ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {

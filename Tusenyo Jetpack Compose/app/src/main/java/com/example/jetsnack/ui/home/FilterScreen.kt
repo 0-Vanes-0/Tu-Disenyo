@@ -68,7 +68,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetsnack.R
 import com.example.jetsnack.model.Filter
-import com.example.jetsnack.model.SnackRepo
+import com.example.jetsnack.model.Repo
 import com.example.jetsnack.ui.FilterSharedElementKey
 import com.example.jetsnack.ui.components.FilterChip
 import com.example.jetsnack.ui.theme.JetsnackTheme
@@ -76,9 +76,9 @@ import com.example.jetsnack.ui.theme.Theme
 
 @Composable
 fun FilterScreen(sharedTransitionScope: SharedTransitionScope, animatedVisibilityScope: AnimatedVisibilityScope, onDismiss: () -> Unit) {
-    var sortState by remember { mutableStateOf(SnackRepo.getSortDefault()) }
+    var sortState by remember { mutableStateOf(Repo.getSortDefault()) }
     var maxCalories by remember { mutableFloatStateOf(0f) }
-    val defaultFilter = SnackRepo.getSortDefault()
+    val defaultFilter = Repo.getSortDefault()
 
     Box(
         modifier = Modifier
@@ -90,9 +90,9 @@ fun FilterScreen(sharedTransitionScope: SharedTransitionScope, animatedVisibilit
                 // capture click
             },
     ) {
-        val priceFilters = remember { SnackRepo.getPriceFilters() }
-        val categoryFilters = remember { SnackRepo.getCategoryFilters() }
-        val lifeStyleFilters = remember { SnackRepo.getLifeStyleFilters() }
+        val priceFilters = remember { Repo.getPriceFilters() }
+        val categoryFilters = remember { Repo.getCategoryFilters() }
+        val lifeStyleFilters = remember { Repo.getLifeStyleFilters() }
         Spacer(
             modifier = Modifier
                 .fillMaxSize()
@@ -226,7 +226,7 @@ fun SortFiltersSection(sortState: String, onFilterChange: (Filter) -> Unit) {
 }
 
 @Composable
-fun SortFilters(sortFilters: List<Filter> = SnackRepo.getSortFilters(), sortState: String, onChanged: (Filter) -> Unit) {
+fun SortFilters(sortFilters: List<Filter> = Repo.getSortFilters(), sortState: String, onChanged: (Filter) -> Unit) {
 
     sortFilters.forEach { filter ->
         SortOption(

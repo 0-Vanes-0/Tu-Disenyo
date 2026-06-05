@@ -91,9 +91,9 @@ private val Density.cardWidthWithPaddingPx
     get() = (HighlightCardWidth + HighlightCardPadding).toPx()
 
 @Composable
-fun SnackCollection(
-    snackCollection: SnackCollection,
-    onSnackClick: (Long, String) -> Unit,
+fun Collection(
+    collection: SnackCollection,
+    onDesignClick: (Long, String) -> Unit,
     modifier: Modifier = Modifier,
     index: Int = 0,
     highlight: Boolean = true,
@@ -106,7 +106,7 @@ fun SnackCollection(
                 .padding(start = 24.dp),
         ) {
             Text(
-                text = snackCollection.name,
+                text = collection.name,
                 style = MaterialTheme.typography.titleLarge,
                 color = JetsnackTheme.colors.brand,
                 maxLines = 1,
@@ -126,10 +126,10 @@ fun SnackCollection(
                 )
             }
         }
-        if (highlight && snackCollection.type == CollectionType.Highlight) {
-            HighlightedSnacks(snackCollection.id, index, snackCollection.snacks, onSnackClick)
+        if (highlight && collection.type == CollectionType.Highlight) {
+            HighlightedSnacks(collection.id, index, collection.snacks, onDesignClick)
         } else {
-            Snacks(snackCollection.id, snackCollection.snacks, onSnackClick)
+            Snacks(collection.id, collection.snacks, onDesignClick)
         }
     }
 }
