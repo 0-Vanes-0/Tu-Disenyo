@@ -12,7 +12,7 @@
   the License.
   -->
 <resources>
-    <string name="app_name">Jetsnack</string>
+    <string name="app_name">Tuseno</string>
     <string name="label_back">Back</string>
 
     <!-- Home Tabs -->
@@ -26,7 +26,7 @@
     <string name="label_select_delivery">Select delivery address</string>
 
     <!-- Search -->
-    <string name="search_jetsnack">Search Jetsnack</string>
+    <string name="search_jetsnack">Search</string>
     <string name="search_no_matches">No matches for “%1s”</string>
     <string name="search_no_matches_retry">Try broadening your search</string>
     <string name="search_count">%1d items</string>
@@ -77,8 +77,8 @@
     <string name="close">Close</string>
 
     <!-- Recent Orders Widget -->
-    <string name="widget_title">Recent Jetsnack orders</string>
-    <string name="snack_order_widget_name">Jetsnack Recent Orders</string>
+    <string name="widget_title">Recent orders</string>
+    <string name="snack_order_widget_name">Recent Orders</string>
     <string name="snack_order_widget_description">Quickly view and reorder your recent orders.</string>
     <string name="shopping_cart_button_label">View shopping cart</string>
     <string name="sample_no_data_text">No data</string>

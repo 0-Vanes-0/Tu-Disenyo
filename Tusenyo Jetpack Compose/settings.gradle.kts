@@ -36,5 +36,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Jetsnack"
+rootProject.name = "Tusenyo"
 include(":app")
